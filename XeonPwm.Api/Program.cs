@@ -62,19 +62,34 @@ builder.Services.AddAuthentication(options =>
     {
     });
 
-#if DEBUG
-builder.Services.AddCors(corsOptions =>
+var enableCors = builder.Configuration
+    .GetRequiredSection("Cors")
+    .GetValue<bool>("Enable"); 
+if (enableCors)
 {
-    corsOptions.AddDefaultPolicy(cBuilder =>
+    builder.Services.AddCors(corsOptions =>
     {
-        cBuilder
-            .WithOrigins("http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+        corsOptions.AddDefaultPolicy(cBuilder =>
+        {
+            var origins = builder.Configuration
+                .GetRequiredSection("Cors:Origins")
+                .GetChildren()
+                .Select(s => s.Value)
+                .Where(s => !string.IsNullOrEmpty(s))
+                .ToArray();
+            if (origins.Length == 0)
+            {
+                throw new Exception("Cors was enabled but there were no origins specified");
+            }
+            
+            cBuilder
+                .WithOrigins(origins!)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
     });
-});
-#endif
+}
 
 var app = builder.Build();
 await using (var scope = app.Services.CreateAsyncScope())
@@ -146,7 +161,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors();
+if (enableCors)
+{
+    app.UseCors();
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
 
