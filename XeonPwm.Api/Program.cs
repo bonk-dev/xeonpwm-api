@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using XeonPwm.Api.Auth;
@@ -61,6 +62,13 @@ builder.Services.AddAuthentication(options =>
     .AddScheme<TokenAuthSchemeOptions, TokenAuthHandler>(TokenAuthSchemeDefaults.TokenAuthScheme, options =>
     {
     });
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = 
+        ForwardedHeaders.XForwardedFor |
+        ForwardedHeaders.XForwardedHost |
+        ForwardedHeaders.XForwardedProto;
+});
 
 var enableCors = builder.Configuration
     .GetRequiredSection("Cors")
@@ -160,6 +168,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseForwardedHeaders();
 
 if (enableCors)
 {
