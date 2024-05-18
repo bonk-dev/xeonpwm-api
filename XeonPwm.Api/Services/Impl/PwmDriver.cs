@@ -33,7 +33,11 @@ public class PwmDriver : IPwmDriver, IDisposable
             throw new Exception("Driver:BaudRate must be a valid integer");
         }
         
-        _port = new SerialPort(serial, baudRate);
+        _port = new SerialPort(serial, baudRate)
+        {
+            DtrEnable = true
+        };
+        
         _port.Open();
         _port.DiscardInBuffer();
         _port.DiscardOutBuffer();
