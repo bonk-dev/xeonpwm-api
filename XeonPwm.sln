@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeonPwm.Api", "XeonPwm.Api\XeonPwm.Api.csproj", "{DEC8924A-A787-4A94-8F5F-5854364591E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeonPwm.Driver", "XeonPwm.Driver\XeonPwm.Driver.csproj", "{0ECC6BD2-9CA1-4EB1-8E8F-0709DC6067FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeonPwm.Driver.Tests", "XeonPwm.Driver.Tests\XeonPwm.Driver.Tests.csproj", "{FF6C9CDB-8C6F-4404-9AF3-774B75FA00A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeonPwm.Data", "XeonPwm.Data\XeonPwm.Data.csproj", "{8A631E0E-7FE7-48C8-BE02-2F48D7571404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XeonPwm.Api.Tests", "XeonPwm.Api.Tests\XeonPwm.Api.Tests.csproj", "{09D3DC8E-8FF0-46F3-943F-564B799B425F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEC8924A-A787-4A94-8F5F-5854364591E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC8924A-A787-4A94-8F5F-5854364591E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC8924A-A787-4A94-8F5F-5854364591E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC8924A-A787-4A94-8F5F-5854364591E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ECC6BD2-9CA1-4EB1-8E8F-0709DC6067FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ECC6BD2-9CA1-4EB1-8E8F-0709DC6067FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ECC6BD2-9CA1-4EB1-8E8F-0709DC6067FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ECC6BD2-9CA1-4EB1-8E8F-0709DC6067FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6C9CDB-8C6F-4404-9AF3-774B75FA00A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6C9CDB-8C6F-4404-9AF3-774B75FA00A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6C9CDB-8C6F-4404-9AF3-774B75FA00A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6C9CDB-8C6F-4404-9AF3-774B75FA00A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A631E0E-7FE7-48C8-BE02-2F48D7571404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A631E0E-7FE7-48C8-BE02-2F48D7571404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A631E0E-7FE7-48C8-BE02-2F48D7571404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A631E0E-7FE7-48C8-BE02-2F48D7571404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D3DC8E-8FF0-46F3-943F-564B799B425F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D3DC8E-8FF0-46F3-943F-564B799B425F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D3DC8E-8FF0-46F3-943F-564B799B425F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D3DC8E-8FF0-46F3-943F-564B799B425F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
