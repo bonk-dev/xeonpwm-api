@@ -25,13 +25,18 @@ public class LmSensorsReader : ITemperatureReader
     
     private readonly ILogger<LmSensorsReader> _logger;
     private readonly IHubContext<PwmHub> _hubContext;
+    private readonly IConfiguration _configuration;
     private int _lastReadTemperature = 0;
     private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
-    public LmSensorsReader(ILogger<LmSensorsReader> logger, IHubContext<PwmHub> hubContext)
+    public LmSensorsReader(
+        ILogger<LmSensorsReader> logger, 
+        IHubContext<PwmHub> hubContext, 
+        IConfiguration configuration)
     {
         _logger = logger;
         _hubContext = hubContext;
+        _configuration = configuration;
     }
 
     public void StartReading() => Task.Factory.StartNew(ReadLoop, TaskCreationOptions.LongRunning);
@@ -48,20 +53,17 @@ public class LmSensorsReader : ITemperatureReader
     {
         while (!_tokenSource.IsCancellationRequested)
         {
-            #if DEBUG
-            var output = await File.ReadAllTextAsync("/tmp/fake.json");
-            #else
-            var process = new Process
+            var path = _configuration.GetRequiredSection("Sensors").GetValue<string>("OutputLogPath");
+            if (string.IsNullOrEmpty(path))
             {
-                StartInfo = StartInfo
-            };
-            process.Start();
-            await process.WaitForExitAsync(_tokenSource.Token);
-
-            var output = await process.StandardOutput.ReadToEndAsync(_tokenSource.Token);
-            _logger.LogDebug("lm_sensors output: {Output}", output);
-            #endif
+                throw new Exception("Sensors:OutputLogPath was null");
+            }
+            if (!File.Exists(path))
+            {
+                throw new Exception($"File {path} does not exist");
+            }
             
+            var output = await File.ReadAllTextAsync(path);
             var temps = ParseLmSensorsOutput(output);
             var currentTemperatureAvg = (int)temps.Average();
 
