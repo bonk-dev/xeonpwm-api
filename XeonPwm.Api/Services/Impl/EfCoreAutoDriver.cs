@@ -112,7 +112,7 @@ public class EfCoreAutoDriver : IAutoDriver
                 return Task.FromResult(currentPoint.PwmPercentage);
             }
 
-            if (currentPoint.Temperature < temperature && nextPoint.Temperature > temperature)
+            if (currentPoint.Temperature <= temperature && nextPoint.Temperature > temperature)
             {
                 return Task.FromResult(GetPwmPercentageFromRange(currentPoint, nextPoint, temperature));
             }
