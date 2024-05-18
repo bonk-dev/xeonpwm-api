@@ -156,7 +156,6 @@ public class ControllerDriver : IDisposable, IAsyncDisposable
         return Encoding.ASCII.GetString(_readBuffer[..newLineIndex].Span);
     }
 
-    // TODO: Figure out why the controller sends the return code two times on "set" methods
     private async Task DiscardReturnCode(CancellationToken token = default) => 
         _ = await Stream.ReadAsync(_readBuffer[..(ReturnCodeLength * 2)], token);
 }
