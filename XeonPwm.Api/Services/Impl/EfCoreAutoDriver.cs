@@ -9,7 +9,7 @@ public class EfCoreAutoDriver : IAutoDriver
 {
     private readonly IPwmDriver _driver;
     private readonly ITemperatureReader _temperatureReader;
-    private readonly ILogger<InMemoryAutoDriver> _logger;
+    private readonly ILogger<EfCoreAutoDriver> _logger;
     private readonly IDbContextFactory<XeonPwmContext> _contextFactory;
 
     private readonly List<AutoDriverPoint> _cachedPoints = new([
@@ -40,7 +40,7 @@ public class EfCoreAutoDriver : IAutoDriver
         }
     }
 
-    public EfCoreAutoDriver(IPwmDriver driver, ITemperatureReader temperatureReader, ILogger<InMemoryAutoDriver> logger, 
+    public EfCoreAutoDriver(IPwmDriver driver, ITemperatureReader temperatureReader, ILogger<EfCoreAutoDriver> logger, 
         IDbContextFactory<XeonPwmContext> contextFactory)
     {
         _driver = driver;
