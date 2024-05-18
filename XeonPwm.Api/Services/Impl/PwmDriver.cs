@@ -40,7 +40,7 @@ public class PwmDriver : IPwmDriver, IDisposable
         
         _logger.LogDebug("Opened the {SerialPortName} serial port", serial);
         
-        Driver = new ControllerDriver(_port.BaseStream);
+        Driver = new ControllerDriver(_port.BaseStream, logger: new DriverLogger(_logger));
     }
 
     public void Dispose()
@@ -48,5 +48,20 @@ public class PwmDriver : IPwmDriver, IDisposable
         _logger.LogDebug("Disposing the PWM driver");
         _port.Close();
         Driver.Dispose();
+    }
+
+    private class DriverLogger : IDriverLogger
+    {
+        private readonly ILogger _logger;
+
+        public DriverLogger(ILogger logger)
+        {
+            _logger = logger;
+        }
+        
+        public void LogDebug(string message)
+        {
+            _logger.LogDebug(message);
+        }
     }
 }

@@ -6,6 +6,8 @@ namespace XeonPwm.Driver;
 
 public class ControllerDriver : IDisposable, IAsyncDisposable
 {
+    private readonly IDriverLogger? _logger;
+
     // Max ESP32 PWM resolution is 16-bit
     // Actual max can be different since resolution can be changed with SetPwmSetting
     public static readonly int AbsoluteMaxDutyCycle = (int)(Math.Pow(2, 16) - 1);
@@ -28,8 +30,9 @@ public class ControllerDriver : IDisposable, IAsyncDisposable
     public int TimeoutMs { get; }
     public SettingValues LastReadSettingValues { get; private set; } = SettingValues.Default;
 
-    public ControllerDriver(Stream stream, int timeoutMs = 5000)
+    public ControllerDriver(Stream stream, int timeoutMs = 5000, IDriverLogger? logger = null)
     {
+        _logger = logger;
         Stream = stream ?? throw new ArgumentNullException(nameof(stream));
         TimeoutMs = timeoutMs;
 
@@ -153,9 +156,26 @@ public class ControllerDriver : IDisposable, IAsyncDisposable
         var readLength = await Stream.ReadAsync(_readBuffer, token);
         var newLineIndex = _readBuffer.Span[..readLength].IndexOf(NewLineBytes.Span);
         
+        _logger?.LogDebug("Buffer " + DebugBuffer(_readBuffer.Span));
+        _logger?.LogDebug("New line index: " + newLineIndex);
+        
         return Encoding.ASCII.GetString(_readBuffer[..newLineIndex].Span);
     }
 
+    private static string DebugBuffer(ReadOnlySpan<byte> buffer)
+    {
+        var builder = new StringBuilder();
+        
+        foreach (var b in buffer)
+        {
+            builder.Append("0x");
+            builder.Append(b.ToString("X2"));
+            builder.Append(' ');
+        }
+
+        return builder.ToString();
+    } 
+    
     private async Task DiscardReturnCode(CancellationToken token = default) => 
         _ = await Stream.ReadAsync(_readBuffer[..(ReturnCodeLength * 2)], token);
 }
