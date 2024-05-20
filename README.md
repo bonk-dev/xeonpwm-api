@@ -18,7 +18,6 @@ because I did not want to use JWT for sessions and I did not like the built-in I
 ## Other repos
 Links to related repos:
 - React app: [TODO: Add](about:blank)
-- Arduino code: [TODO: Add](about:blank)
 
 ## Features
 - manual mode
