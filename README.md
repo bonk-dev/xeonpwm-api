@@ -17,7 +17,7 @@ because I did not want to use JWT for sessions and I did not like the built-in I
 
 ## Other repos
 Links to related repos:
-- React app: [TODO: Add](about:blank)
+- React app: [xeonpwm-ui](https://github.com/bonk-dev/xeonpwm-ui)
 
 ## Features
 - manual mode
