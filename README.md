@@ -1,7 +1,7 @@
 ![Wide XEON PWM Logo](assets/biglogo.png)
 
 # XEON PWM Panel
-![MIT badge](https://img.shields.io/github/license/bonk-dev/xeonpwm?style=flat-square)
+![MIT badge](https://img.shields.io/github/license/bonk-dev/xeonpwm-api?style=flat-square)
 
 XEON PWM is an application which I developed to control my server fans using my makeshift controller.
 
